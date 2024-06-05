@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width"/>
+<title>Cadastrar Saída</title>
+<link rel="stylesheet" th:href="@{/css/estilo.css}" />
+
+
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/}"> Entrada e saída </a></li>
+
+				<li><a th:href="@{/pessoas}"> Listar </a></li>
+
+				<li><a th:href="@{/pessoas/novo}"> Novo </a></li>
+
+				<li><a th:href="@{/formularioSaida}">Adicionar Horario de saída</a></li>
+			</ul>
+		</nav>
+
+	</header>
+
+	<main>
+		<section>
+			<h1>Cadastro de Pessoas</h1>
+		</section>
+
+		<section>
+			<form action="#" method="post">
+				<div>
+					<label for="id">Código:</label>
+					<input type="text" id="id" readonly>
+				</div>
+                <div>
+					<label for="horaSaida">Hora Saída:</label>
+					<input type="datetime-local" id="horaEntrada">
+				</div>
+                <div>
+					<button type="submit">Salvar</button>
+					<button type="button" id="limpar">Limpar</button>
+				</div>
+
+			</form>
+		</section>
+		<script>
+				const limparButton = document.getElementById('limpar');
+
+				limparButton.addEventListener('click', function() {
+				const form = document.querySelector('form');
+				form.reset();
+				});
+
+				const horaEntradaInput = document.getElementById('horaEntrada');
+
+				function setHoraAtual() {
+				const now = new Date();
+
+				// Convert to BRT (UTC-3)
+				now.setHours(now.getHours() - 3);
+
+				const formattedDate = now.toISOString().slice(0, 16); // Get YYYY-MM-DDTHH:MM
+				horaEntradaInput.value = formattedDate;
+				}
+
+				// Set initial value to current BRT time when the page loads
+				setHoraAtual();
+
+				// Optionally: Set the value to current BRT time every second
+				setInterval(setHoraAtual, 1000);
+			</script>
+	</main>
+</body>
+
+</html>

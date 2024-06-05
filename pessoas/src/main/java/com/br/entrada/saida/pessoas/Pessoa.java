@@ -119,13 +119,12 @@ public class Pessoa {
 	            return "";
 	        }
 	    }
-	 
-	 public String registrarHoraSaida() {
-	        // Obtém a data e hora atual
-	        LocalDateTime saida = LocalDateTime.now();
-	        // Formata a data e hora atual como uma string
-	        DateTimeFormatter formatarSaida = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-	        return saida.format(formatarSaida);
+	 public void setHoraSaida(String horaSaida) {
+	        this.horaSaida = horaSaida;
+	    }
+	 public void setHoraSaida(LocalDateTime horaSaida) {
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	        this.horaSaida = horaSaida.format(formatter);
 	    }
 	
 	public String getObservacao() {

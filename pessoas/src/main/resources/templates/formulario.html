@@ -1,36 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width"/>
-    <title>Cadastrar entrada</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width"/>
+<title>Cadastrar entrada</title>
+<link rel="stylesheet" th:href="@{/css/estilo.css}" />
+
+
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a th:href="@{/}"> Entrada e saída </a></li>
-                <li><a th:href="@{/pessoas}"> Listar </a></li>
-                <li><a th:href="@{/pessoas/novo}"> Novo </a></li>
-                <li><a th:href="@{/formularioSaida}">Adicionar Horário de saída</a></li>
-            </ul>
-        </nav>
-    </header>
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/}"> Entrada e saída </a></li>
 
-    <main>
-        <section>
-            <h1>Cadastro de Pessoas</h1>
-        </section>
+				<li><a th:href="@{/pessoas}"> Listar </a></li>
 
-        <section>
-            <form th:object="${pessoa}" th:action="@{/pessoas}" th:method="post">
-                <div th:if="${!pessoa.novo}">
-                    <label>Código: </label>
-                    <input th:field="*{id}" readonly="readonly" />
-                </div>
-                
+				<li><a th:href="@{/pessoas/novo}"> Novo </a></li>
+
+				
+			</ul>
+		</nav>
+
+	</header>
+
+	<main>
+		<section>
+			<h1>Cadastro de Pessoas</h1>
+		</section>
+
+		<section>
+			<!-- Define a ação do formulário com base na condição se a pessoa é nova ou não  -->
+			<form 
+			th:action="${pessoa.novo} ? @{/pessoas} : @{/pessoas/{pessoa}(pessoa=${pessoa.id})}"
+			 th:object="${pessoa}" 
+			 th:method="${pessoa.novo} ? post : put">
+			 <!-- Define o objeto do formulário como a pessoa atual -->
+			 <!-- Define o método do formulário com base na condição se a pessoa é nova ou não -->
+				<!-- aqui usa um operador ternario que verifica se pessoa.novo é true pessoa.novo é o metodo do java isNovo() na classe Pessoa -->
+				<div th:if="${!pessoa.novo}"><!-- se nao for verdadeiro nao exibe o identificador -->
+					<label>Código: </label>
+					<input th:field="*{id}" readonly="readonly" />
+				</div>
+				
                 <div>
                     <label>Nome: </label> 
                     <input th:field="*{nome}" />
@@ -61,10 +75,6 @@
                     <input th:field="*{paciente}"/>
                 </div>
                 
-                <div>
-                    <label for="horaEntrada">Hora Entrada:</label>
-                    <input type="datetime-local" th:field="*{horaEntrada}"/>
-                </div>
                 
                 <div>
                     <label for="observacao">Observação:</label>
@@ -72,19 +82,22 @@
                 </div>
                 
                 <div>
-                    <button type="submit">Salvar</button>
+                    <button>Salvar</button>
                     <button type="button" id="limpar">Limpar</button>
                 </div>
             </form>
-        </section>
+		</section>
+		<script>
+				const limparButton = document.getElementById('limpar');
 
-        <script>
-            const limparButton = document.getElementById('limpar');
-            limparButton.addEventListener('click', function() {
-                const form = document.querySelector('form');
-                form.reset();
-            });
-        </script>
-    </main>
+				limparButton.addEventListener('click', function() {
+				const form = document.querySelector('form');
+				form.reset();
+				});
+
+
+			</script>
+	</main>
 </body>
+
 </html>

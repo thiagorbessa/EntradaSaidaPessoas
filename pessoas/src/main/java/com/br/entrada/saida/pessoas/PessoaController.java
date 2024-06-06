@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -102,7 +104,45 @@ public class PessoaController {
 		return modelAndView;
 	}
 	
-	public Pessoa procurarPessoa(String id) {//pega o id e procura a pessoa com esse id
+	@PutMapping("/pessoas/{id}") // Mapeia o método para requisições PUT na URL /pessoas/{id}
+	public String atualizar(Pessoa pessoa) {
+	    	 
+		// Procura a pessoa na lista com base no ID da pessoa fornecid
+	    Integer indice = procurarIndicePessoa(pessoa.getId());
+	    
+	    Pessoa pessoaComCadastroAntigo =LISTA_PESSOA.get(indice);
+	    		
+	    //coloca no objeto pessoa os campos imutaveis na edicao do objeto antigo pessoaComCadastroAntigo
+	    pessoa.setHoraSaida(pessoaComCadastroAntigo.getHoraSaida());//garante que a horaEntrada será mantida caso ja tenha sido cadastrada
+	    pessoa.sethoraEntrada(pessoaComCadastroAntigo.getHoraEntrada());//garante que a horaEntrada será mantida
+	    
+	        // Remove a pessoa desatualizada da lista
+	        LISTA_PESSOA.remove(pessoaComCadastroAntigo);
+	        
+	        
+	        // Adiciona a pessoa atualizada à lista
+	        //LISTA_PESSOA.add(pessoa);
+	        
+	        //essa opcao mantem a pessoa no mesmo lugar do indice
+	        LISTA_PESSOA.add(indice, pessoa);
+	    
+	    // Redireciona para a lista de pessoas após a atualização
+	    return "redirect:/pessoas";
+	}
+	
+	@DeleteMapping("/pessoas/{id}")
+	public String remover(@PathVariable String id) {
+		Pessoa pessoa = procurarPessoa(id);
+		LISTA_PESSOA.remove(pessoa);		
+		return "redirect:/pessoas";
+	}
+
+	
+	
+	
+	////////////metodos auxiliares /////////
+	
+	private Pessoa procurarPessoa(String id) {//pega o id e procura a pessoa com esse id
 		for(int i =0;i<LISTA_PESSOA.size();i++) {
 			Pessoa pessoa = LISTA_PESSOA.get(i);
 			if (pessoa.getId().equals(id)) {//verifica se o objeto pessoa do id acima é igual ao id informado
@@ -141,6 +181,18 @@ public class PessoaController {
 	    }
 	    return "redirect:/pessoas"; // Redireciona para a lista de pessoas após salvar a hora de saída
 	}
+	
+	private Integer procurarIndicePessoa(String id) {//pega o id e procura a pessoa com esse id
+		for(int i =0;i<LISTA_PESSOA.size();i++) {
+			Pessoa pessoa = LISTA_PESSOA.get(i);
+			if (pessoa.getId().equals(id)) {//verifica se o objeto pessoa do id acima é igual ao id informado
+				return i;
+			}
+		}
+		return null;//se nao encontrar o id retorna nulo
+	}
+	
+	
 	
 }
 /*

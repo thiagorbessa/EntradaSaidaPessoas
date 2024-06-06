@@ -57,8 +57,8 @@
                         
                         <td><a th:href="@{/pessoas/{id}/formularioSaida(id=${pessoa.id})}">Casdastrar Saída </td>
                         <td>
-                            <form th:action="@{/pessoas/{id}/delete(id=${pessoa.id})}" th:method="delete">
-                                <button type="submit">Remover</button>
+                            <form th:action="@{/pessoas/{pessoa}(pessoa=${pessoa.id})}" th:method="delete">
+                                <button type="submit">Remover</button><!-- para usar o delete é ideal colocar ele em um forumlario separado -->
                             </form>
                         </td>
                     </tr>

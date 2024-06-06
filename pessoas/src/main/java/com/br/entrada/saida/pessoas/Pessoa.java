@@ -119,6 +119,10 @@ public class Pessoa {
 	            return "";
 	        }
 	    }
+	 public void sethoraEntrada(String horaEntrada) {
+	        this.horaEntrada = horaEntrada;
+	    }
+	 
 	 public void setHoraSaida(String horaSaida) {
 	        this.horaSaida = horaSaida;
 	    }

@@ -32,7 +32,7 @@ public class PessoaController {
 		//Pessoa pessoa = new Pessoa("1","Thiago","4045","hc4","informatica",
 		//"s1","funcionario","");//outra forma
 		
-		LISTA_PESSOA.add(new Pessoa("1","Thiago","4045","hc4","informatica",
+		/*LISTA_PESSOA.add(new Pessoa("1","Thiago","4045","hc4","informatica",
 				"s1","funcionario",""));//forma mais direta
 		LISTA_PESSOA.add(new Pessoa("2","Diego","4045","hc4","informatica",
 				"s1","funcionario",""));//forma mais direta
@@ -41,7 +41,7 @@ public class PessoaController {
 		LISTA_PESSOA.add(new Pessoa("4","Guttemberg","4045","hc4","informatica",
 				"s1","funcionario",""));//forma mais direta
 		LISTA_PESSOA.add(new Pessoa("5","Marcio","4045","hc4","informatica",
-				"s1","funcionario",""));//forma mais direta
+				"s1","funcionario",""));//forma mais direta*/
 		
 		
 	}
